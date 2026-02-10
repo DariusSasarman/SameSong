@@ -4,6 +4,11 @@
 
 A software application meant to **identify songs** from **short audio snippets**, even in **noisy environments**.
 
+## How does it look like?
+
+[Screencast from 2026-02-10 16-45-05.webm](https://github.com/user-attachments/assets/d48ddac8-038c-4956-ac6b-eab5f6ef3945)
+
+
 ## How was it done?
 
 This is done through using **two complementary approaches** to find matches. Each **song** is stored with **two fingerprints** - one for **exact matching** and one for **semantic similarity**.
