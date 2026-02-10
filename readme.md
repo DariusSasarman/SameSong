@@ -9,7 +9,7 @@ A software application meant to **identify songs** from **short audio snippets**
 [Screencast from 2026-02-10 16-45-05.webm](https://github.com/user-attachments/assets/d48ddac8-038c-4956-ac6b-eab5f6ef3945)
 
 
-(Disclaimer! The server in this video returns dummy data. It's supposed to work but my laptop isn't strong enough to run the complete translation in a real-time demo)
+<sub>(Disclaimer! The server in this video returns dummy data. It's supposed to work but my computer isn't strong enough to run the complete translation in a real-time demo)</sub>
 
 ## How was it done?
 
