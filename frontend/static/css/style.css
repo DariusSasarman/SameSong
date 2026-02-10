@@ -1,0 +1,181 @@
+:root {
+    --bg: #0b0e14;
+    --accent: #00f2ff;
+    --text: #e0e0e0;
+    --card: #161b22;
+    --shadow: rgba(0, 242, 255, 0.2);
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: sans-serif;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow-x: hidden; /* Prevent horizontal scroll if boxes expand wide */
+}
+
+.container {
+    width: 90%;
+    max-width: 1000px; /* Increased to allow outward expansion */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    padding-bottom: 50px;
+}
+
+header {
+    margin-top: 40px;
+    width: 100%;
+    text-align: center;
+    z-index: 20;
+}
+
+h1 { font-size: 2.5rem; margin: 0; letter-spacing: -1px; }
+h1 span, header p span { color: var(--accent); text-shadow: 0 0 15px var(--shadow); }
+header p { color: #8b949e; font-size: 0.9rem; margin: 10px 0 0 0; }
+
+.app-shell {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.record-zone {
+    height: 220px;
+    width: 100%;
+    max-width: 400px; /* Keep the record button area focused */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+#visualizer {
+    width: 100%;
+    height: 120px;
+    position: absolute;
+    border-radius: 10px;
+    top: 0;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.glow-button {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    border: none;
+    background: var(--card);
+    box-shadow: 0 0 25px var(--shadow);
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.glow-button.recording {
+    background: var(--accent);
+    animation: pulse 1.5s infinite;
+    box-shadow: 0 0 25px var(--accent);
+}
+
+.mic-icon { background: var(--text); transition: 0.3s; }
+.mic-icon.listen { width: 16px; height: 16px; border-radius: 50%; }
+.mic-icon.stop { width: 18px; height: 18px; border-radius: 2px; }
+
+#status {
+    margin-top: 30px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.loader {
+    width: 26px;
+    height: 26px;
+    border: 3px solid var(--card);
+    border-bottom-color: var(--accent);
+    border-radius: 50%;
+    display: none;
+    margin-top: 15px;
+    animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+/* Expanded Dual Box Layout */
+.results-wrapper {
+    width: 100%;
+    margin-top: 40px;
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.results-wrapper.hidden { opacity: 0; transform: translateY(40px); pointer-events: none; }
+
+.analysis-grid {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    width: 100%;
+}
+
+.analysis-card {
+    background: var(--card);
+    padding: 25px;
+    border-radius: 16px;
+    border: 1px solid #30363d;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5);
+    flex: 1;
+    min-width: 280px; /* Ensures they don't get too skinny */
+    max-width: 450px; /* Allows them to expand outwardly significantly */
+}
+
+.card-header { border-bottom: 1px solid #21262d; margin-bottom: 15px; padding-bottom: 10px; }
+.analysis-card h3 { margin: 0; font-size: 0.9rem; color: var(--accent); letter-spacing: 1px; }
+.sub-label { font-size: 0.65rem; color: #8b949e; text-transform: uppercase; margin-top: 4px; display: block; }
+
+ul { list-style: none; padding: 0; margin: 0; }
+li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #21262d;
+    font-size: 0.95rem;
+    gap: 20px;
+}
+
+.score { color: var(--accent); font-weight: 700; white-space: nowrap; }
+.name {
+    color: var(--text);
+    white-space: normal; /* Allow title to wrap or expand */
+    word-break: break-word;
+    flex-grow: 1;
+}
+.time {
+    color: #8b949e;
+    background: #0d1117;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    white-space: nowrap;
+}
+
+@keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.08); } 100% { transform: scale(1); } }
+
+@media (max-width: 768px) {
+    .analysis-grid { flex-direction: column; align-items: center; }
+    .analysis-card { width: 100%; }
+}

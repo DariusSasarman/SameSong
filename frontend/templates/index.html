@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SameSong</title>
+
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="icon" type="image/x-icon" href="../static/icon.png">
+    <!-- "https://www.flaticon.com/free-icons/music-and-multimedia" -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Same<span>Song</span></h1>
+            <p>The <span>Vibe</span>... <i>"won't be enough, they <span>never</span> get enough!"</i></p>
+        </header>
+
+        <main>
+            <div class="app-shell">
+                <div class="record-zone">
+                    <canvas id="visualizer"></canvas>
+                    <button id="recordBtn" class="glow-button">
+                        <div id="btnIcon" class="mic-icon listen"></div>
+                    </button>
+                    <div id="status">Ready to listen</div>
+                    <div id="loader" class="loader"></div>
+                </div>
+
+                <section id="resultsPanel" class="results-wrapper hidden">
+                    <div class="analysis-grid">
+
+                        <div class="analysis-card">
+                            <div class="card-header">
+                                <h3>Vibe Match </h3>
+                                <span class="sub-label">Texture & Mood</span>
+                            </div>
+                            <ul id="vibeResults" class="results-list"></ul>
+                        </div>
+
+                        <div class="analysis-card">
+                            <div class="card-header">
+                                <h3>Snippet Match</h3>
+                                <span class="sub-label">Exact Timestamp</span>
+                            </div>
+                            <ul id="snippetResults" class="results-list"></ul>
+                        </div>
+
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="../static/js/script.js"></script>
+</body>
+</html>
