@@ -17,31 +17,6 @@ celery = Celery(
 
 @celery.task(name="processing.tasks.process_audio")
 def process_audio(tmp_filename, client_ip):
-    time.sleep(3)
-    dummy_results = {
-
-        "vibe_matches": [
-
-            {"name": "Hope's dream", "score": 0.98},
-
-            {"name": "Mosaic", "score": 0.85},
-
-            {"name": "Off my mind", "score": 0.72}
-
-        ],
-
-        "snippet_matches": [
-
-            {"name": "Sapphieros - Embrace", "timestamp": "00:01"},
-
-            {"name": "First rain", "timestamp": "1:32"},
-
-            {"name": "From Space", "timestamp": "0:41"}
-
-        ]
-
-    }
-    return dummy_results
     input_path = UPLOAD_DIR / tmp_filename
     wav_path = None
     print(f"Processing audio file: {input_path}")
