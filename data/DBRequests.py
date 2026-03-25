@@ -6,4 +6,4 @@ def get_snippet_matches_from_db(query_hashes):
 
 
 def get_vibe_matches_from_db(query_vector):
-    return {"vibe_matches": find_vibe_matches(query_vector)} 
+    return find_vibe_matches(query_vector)

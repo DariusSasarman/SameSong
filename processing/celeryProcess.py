@@ -1,5 +1,3 @@
-import time
-
 from celery import Celery
 import os
 from pathlib import Path
