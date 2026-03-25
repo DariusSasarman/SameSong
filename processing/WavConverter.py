@@ -1,12 +1,13 @@
 from pydub import AudioSegment
+import uuid
 
 
-def convert_to_wav(input_path, client_ip):
+def convert_to_wav(input_path):
     """
     Converts raw browser audio to a standard 16kHz Mono WAV.
     Deletes the input_path file immediately after successful conversion.
     """
-    output_path = input_path.parent / f"{client_ip}.wav"
+    output_path = input_path.parent / f"{uuid.uuid4()}.wav"
 
     # 1. Perform conversion
     audio = AudioSegment.from_file(str(input_path))

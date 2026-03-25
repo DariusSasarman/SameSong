@@ -1,9 +1,6 @@
 import os
 
 import redis
-from pathlib import Path
-
-path = Path('../data/tmp')
 
 r = redis.Redis.from_url(
     os.environ.get("REDIS_URL", "redis://localhost:6379/0")

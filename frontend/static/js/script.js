@@ -91,7 +91,7 @@ recordBtn.onclick = async () => {
                     if (data.status === "done") break;
                     if (data.status === "rejected") throw new Error("Request rejected by server.");
                     if (data.status === "failed") throw new Error("Analysis failed.");
-
+                    if (data.status === "error") throw new Error(data.message);
                     // Wait 2 seconds before checking again
                     await new Promise(r => setTimeout(r, 2000));
                 }

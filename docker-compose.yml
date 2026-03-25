@@ -48,7 +48,6 @@ services:
       - DATABASE_URL=postgresql://samesong:samesong_password@db:5432/samesong
     depends_on:
       - redis
-      - web
       - db
     volumes:
       - .:/app

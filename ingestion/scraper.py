@@ -5,6 +5,7 @@ import random
 import logging
 import argparse
 from pathlib import Path
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from processing.FFT.FFTProcessor import fft_engine
 from processing.CLAP.CLAPProcessor import create_embedding
 
@@ -100,16 +101,33 @@ class InternetArchiveScraper:
             if file_path.exists():
                 file_path.unlink()
 
+def _process_track(scraper, track, existing_titles):
+    """Download and process a single track. Returns song_data dict or None."""
+    identifier = track.get('identifier')
+    title = track.get('title', 'Unknown Title')
+    artist = track.get('creator', 'Unknown Artist')
+
+    if (title, artist) in existing_titles:
+        logger.info(f"Skipping already processed: {title} - {artist}")
+        return None
+
+    file_path = scraper.download_track(identifier)
+    if file_path:
+        return scraper.process_song(file_path, title, artist)
+    return None
+
+
 def main():
     parser = argparse.ArgumentParser(description="Scrape and process music from Internet Archive")
     parser.add_argument("--limit", type=int, default=5, help="Number of songs to scrape")
+    parser.add_argument("--workers", type=int, default=1, help="Number of parallel download workers")
     args = parser.parse_args()
 
     scraper = InternetArchiveScraper()
     tracks = scraper.fetch_random_tracks(limit=args.limit)
-    
+
     processed_songs = []
-    
+
     # Load existing data if file exists
     if DATABASE_FILE.exists():
         try:
@@ -119,28 +137,25 @@ def main():
         except Exception as e:
             logger.error(f"Error loading existing database: {e}")
 
-    for track in tracks:
-        identifier = track.get('identifier')
-        title = track.get('title', 'Unknown Title')
-        artist = track.get('creator', 'Unknown Artist')
-        
-        # Simple list-based deduplication
-        if any(s['title'] == title and s['artist'] == artist for s in processed_songs):
-            logger.info(f"Skipping already processed: {title} - {artist}")
-            continue
+    existing_titles = {(s['title'], s['artist']) for s in processed_songs}
 
-        file_path = scraper.download_track(identifier)
-        if file_path:
-            song_data = scraper.process_song(file_path, title, artist)
+    with ThreadPoolExecutor(max_workers=args.workers) as executor:
+        futures = {
+            executor.submit(_process_track, scraper, track, existing_titles): track
+            for track in tracks
+        }
+        for future in as_completed(futures):
+            song_data = future.result()
             if song_data:
                 processed_songs.append(song_data)
-                
+                existing_titles.add((song_data['title'], song_data['artist']))
                 # Save after each success to be safe
                 with open(DATABASE_FILE, 'wb') as f:
                     pickle.dump(processed_songs, f)
-                logger.info(f"Saved {title} to {DATABASE_FILE}")
+                logger.info(f"Saved {song_data['title']} to {DATABASE_FILE}")
 
     logger.info(f"Finished. Total songs in {DATABASE_FILE}: {len(processed_songs)}")
+
 
 if __name__ == "__main__":
     main()

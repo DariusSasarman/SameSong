@@ -48,13 +48,16 @@ def upload():
 def status(task_id):
     result = process_audio.AsyncResult(task_id)
 
-    if result.ready() and result.successful():
+    if result.ready():
+        if result.successful():
             data = result.result
             return jsonify({
                 "status": "done",
                 "vibe_matches": data.get("vibe_matches"),
                 "snippet_matches": data.get("snippet_matches")
             })
+        else:
+            return jsonify({"status": "error", "message": "Task failed"}), 500
     return jsonify({"status": "processing"})
 
 

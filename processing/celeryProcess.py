@@ -24,7 +24,7 @@ def process_audio(tmp_filename, client_ip):
 
         print(f"Converting file: {input_path}")
         # This converts AND deletes the original temp file
-        wav_path = convert_to_wav(input_path, client_ip)
+        wav_path = convert_to_wav(input_path)
 
         if not wav_path.exists():
             raise Exception(f"Audio file {tmp_filename} not processed.")
