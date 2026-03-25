@@ -44,7 +44,7 @@ After all this, I tied it all up using **Docker Compose**.
 The system includes a scraper that can download and process music from Internet Archive in parallel:
 
 ```bash
-python ingestion/scraper.py --limit 10 --workers 4
+python3 ingestion/scraper.py --limit 10 --workers 4
 ```
 
 ### 2. Automatic Database Loading
