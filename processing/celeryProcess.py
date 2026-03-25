@@ -7,7 +7,7 @@ from processing.FFT.FFTWrapper import get_snippet_matches
 from processing.CLAP.CLAPWrapper import get_vibe_matches
 from processing.WavConverter import convert_to_wav
 # Configuration for paths
-UPLOAD_DIR = Path('../data/tmp')
+UPLOAD_DIR = Path('/data/tmp')
 
 celery = Celery(
     "samesong",
@@ -38,8 +38,8 @@ def process_audio(tmp_filename, client_ip):
         print(f"Analyzing standardized file: {wav_path}")
 
         return {
-            vibe_results,
-            snippet_results
+            "vibe_matches": vibe_results,
+            "snippet_matches": snippet_results
         }
 
     except Exception as e:
