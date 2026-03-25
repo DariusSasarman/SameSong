@@ -72,14 +72,14 @@ graph TB
     A[User Uploads Audio] --> B[Celery Task Created]
     B --> C{Redis Queue}
     C --> D[Worker Processes Audio]
-    D --> E[Extract FFT Fingerprints]
-    D --> F[Generate CLAP Embedding]
-    E --> G[Query PostgreSQL<br/>Fingerprints Table]
-    F --> H[Query PostgreSQL<br/>Vector Search]
-    G --> I[Time-delta Alignment]
-    I --> J[Return Snippet Matches]
-    H --> J
-    J --> K[Display Results to User]
+    D --> E[Convert to WAV]
+    E --> F[Generate CLAP Embedding]
+    F --> G[Query PostgreSQL<br/>Vector Search]
+    G --> H[Extract FFT Fingerprints]
+    H --> I[Query PostgreSQL<br/>Fingerprints Table]
+    I --> J[Time-delta Alignment]
+    J --> K[Return Results]
+    K --> L[Display Results to User]
 ```
 
 ## Quick Start
