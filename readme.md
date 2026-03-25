@@ -91,4 +91,3 @@ docker-compose up
 
 That's it! The database will auto-load and the app will be available at `http://localhost:80`.
 
-<sub> Disclaimer! The current state of this project is "vibe-coded", as in "requested the lego pieces and put it all together" vibe-coding. I had this ideea and I wanted it implemented asap.</sub>
