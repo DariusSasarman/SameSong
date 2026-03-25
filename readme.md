@@ -9,13 +9,11 @@ A software application meant to **identify songs** from **short audio snippets**
 [Screencast from 2026-02-10 16-45-05.webm](https://github.com/user-attachments/assets/d48ddac8-038c-4956-ac6b-eab5f6ef3945)
 
 
-<sub>(Disclaimer! The server in this video returns dummy data. It's supposed to work but my computer isn't strong enough to run the complete translation in a real-time demo)</sub>
-
 ## How was it done?
 
 This is done through using **two complementary approaches** to find matches. Each **song** is stored with **two fingerprints** - one for **exact matching** and one for **semantic similarity**.
 
-Using this dual perspective, this software application employs several **algorithms** to obtain **accurate results**, such as:
+Using this dual perspective, this software application employs several **algorithms** to obtain **results**, such as:
   
   - **FFT Fingerprinting**: Extract spectral peaks and create hash-based fingerprints for exact matching (Shazam-style)
   - **CLAP Embeddings**: Use transformer-based audio understanding to find songs with similar "vibes"
